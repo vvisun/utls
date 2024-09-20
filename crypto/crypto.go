@@ -37,7 +37,7 @@ func ParsePublicKey(data []byte) (*rsa.PublicKey, error) {
 
 	pubKey, ok := keyInterface.(*rsa.PublicKey)
 	if !ok {
-		return nil, fmt.Errorf("Could not cast parsed key to *rsa.PublickKey")
+		return nil, fmt.Errorf("could not cast parsed key to *rsa.PublickKey")
 	}
 
 	return pubKey, nil
@@ -74,10 +74,10 @@ func LoadCertSerialNo(certPath string) (string, int32) {
 func pemParse(data []byte, pemType string) ([]byte, error) {
 	block, _ := pem.Decode(data)
 	if block == nil {
-		return nil, fmt.Errorf("No PEM block found")
+		return nil, fmt.Errorf("no PEM block found")
 	}
 	if pemType != "" && block.Type != pemType {
-		return nil, fmt.Errorf("Key's type is '%s', expected '%s'", block.Type, pemType)
+		return nil, fmt.Errorf("key's type is '%s', expected '%s'", block.Type, pemType)
 	}
 	return block.Bytes, nil
 }
