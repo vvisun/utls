@@ -29,3 +29,13 @@ func RandInt(minV int, maxV int) int {
 	}
 	return minV + rand.Intn(maxV-minV+1)
 }
+
+func Shuffle(deck []int32) []int32 {
+	for i := len(deck) - 1; i > 0; i-- {
+		// 生成一个[0, i]范围内的随机索引
+		j := rand.Intn(i + 1)
+		// 交换deck[i]和deck[j]
+		deck[i], deck[j] = deck[j], deck[i]
+	}
+	return deck
+}
