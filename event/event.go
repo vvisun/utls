@@ -13,6 +13,7 @@ type eventBusWrapper struct {
 var ebr *eventBusWrapper
 var once sync.Once
 
+// 获取事件总线实例
 func EventInstance() *eventBusWrapper {
 	once.Do(func() {
 		ebr = &eventBusWrapper{
