@@ -28,7 +28,7 @@ func AddErrTable(tbl map[int32]string) {
 
 func Error(code int32) error {
 	if _, ok := err_map[code]; !ok {
-		leaflog.Fatal("[error]没有配置错误表: %d\n", code)
+		leaflog.Debug("[error]没有配置错误表: %d\n", code)
 		return errors.New("未知错误(没有配置错误表)")
 	}
 	return err_map[code]
@@ -36,7 +36,7 @@ func Error(code int32) error {
 
 func ErrorString(code int32) string {
 	if _, ok := err_table[code]; !ok {
-		leaflog.Fatal("[error]没有配置错误表: %d\n", code)
+		leaflog.Debug("[error]没有配置错误表: %d\n", code)
 		return "未知错误(没有配置错误表)"
 	}
 	return err_table[code]
