@@ -17,7 +17,5 @@ require (
 	github.com/asaskevich/EventBus v0.0.0-20200907212545-49d423059eef
 	github.com/pborman/uuid v1.2.1
 	github.com/satori/go.uuid v1.2.0
-	golang.org/x/crypto v0.21.0
 	golang.org/x/sys v0.18.0 // indirect
-	golang.org/x/text v0.14.0
 )
