@@ -6,7 +6,7 @@ package errutil
 
 const (
 	Succ           int32 = 0 //成功
-	Sys_MidFeature int32 = 1 //功能尚未实现
-	Sys_UnKnown    int32 = 2 //未知错误
+	Sys_UnKnown    int32 = 1 //未知错误
+	Sys_MidFeature int32 = 2 //功能尚未实现
 	Sys_InvalidArg int32 = 3 //无效参数
 )

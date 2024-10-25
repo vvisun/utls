@@ -8,19 +8,16 @@ import (
 )
 
 var err_map map[int32]error = make(map[int32]error)
+var errMissConfig = errors.New("未知错误(没有配置错误表)")
 
 func init() {
 	for code, str := range err_table {
-		err_table[code] = str
 		err_map[code] = errors.New(str)
 	}
 }
 
 func AddErrTable(tbl map[int32]string) {
 	for code, str := range tbl {
-		if code < 1000 {
-			leaflog.Fatal("[error]错误码必须大于1000: %d - %s\n", code, str)
-		}
 		err_table[code] = str
 		err_map[code] = errors.New(str)
 	}
@@ -29,7 +26,7 @@ func AddErrTable(tbl map[int32]string) {
 func Error(code int32) error {
 	if _, ok := err_map[code]; !ok {
 		leaflog.Debug("[error]没有配置错误表: %d\n", code)
-		return errors.New("未知错误(没有配置错误表)")
+		return errMissConfig
 	}
 	return err_map[code]
 }
@@ -37,13 +34,17 @@ func Error(code int32) error {
 func ErrorString(code int32) string {
 	if _, ok := err_table[code]; !ok {
 		leaflog.Debug("[error]没有配置错误表: %d\n", code)
-		return "未知错误(没有配置错误表)"
+		return errMissConfig.Error()
 	}
 	return err_table[code]
 }
 
 func IsSucc(code int32) bool {
 	return code == Succ
+}
+
+func IsFail(code int32) bool {
+	return code != Succ
 }
 
 func GetCurrentGoroutineStack() string {

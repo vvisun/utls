@@ -3,18 +3,19 @@ package algoutil
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/url"
 	"sort"
 	"strings"
-
-	"github.com/vvisun/utls/errutil"
 )
 
 const (
 	argSep = "&"
 	kvSep  = "="
 )
+
+var ErrInvalidArg = errors.New("invalid arg")
 
 func ParseParams(params string) map[string]string {
 	m := map[string]string{}
@@ -34,21 +35,17 @@ func ParseParams(params string) map[string]string {
 }
 
 // WARNING: All struct field must be string type
-func ParamsToStruct(params string, v interface{}) int32 {
+func ParamsToStruct(params string, v interface{}) error {
 	if params == "" || len(strings.TrimSpace(params)) < 1 {
-		return errutil.Sys_UnKnown
+		return ErrInvalidArg
 	}
 	m := ParseParams(params)
 	bytes, err := json.Marshal(m)
 	if err != nil {
-		return errutil.Sys_UnKnown
+		return err
 	}
 
-	if json.Unmarshal(bytes, v) != nil {
-		return errutil.Sys_UnKnown
-	}
-
-	return errutil.Succ
+	return json.Unmarshal(bytes, v)
 }
 
 func SortParams(m map[string]string) string {
