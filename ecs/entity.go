@@ -28,10 +28,24 @@ func (e *Entity) EID() int64 {
 
 //----------------------------------------------------------
 
+// 检查指针是否是空值
+func isNil(comp interface{}) bool {
+	v := reflect.ValueOf(comp)
+	if v.Kind() == reflect.Ptr {
+		if v.IsNil() {
+			return true
+		} else {
+			return false
+		}
+	} else {
+		return false
+	}
+}
+
 // 给Entity添加组件实例comp
 func AddComponent(e *Entity, comp interface{}) interface{} {
 	compType := reflect.TypeOf(comp)
-	if compType == nil || compType.Kind() != reflect.Ptr {
+	if compType == nil || compType.Kind() != reflect.Ptr || isNil(comp) {
 		log.Fatal("请传指针")
 		return nil
 	}
@@ -46,14 +60,14 @@ func AddComponent(e *Entity, comp interface{}) interface{} {
 	return comp
 }
 
-// 给Entity跟新组件
+// 给Entity更新组件
 func ReplaceComponent(e *Entity, comp interface{}) interface{} {
 	compType := reflect.TypeOf(comp)
 	if compType == nil || compType.Kind() != reflect.Ptr {
 		log.Fatal("请传指针")
 		return nil
 	}
-	if nil == comp {
+	if nil == comp || isNil(comp) {
 		log.Fatal("comp为nil, 如果可以赋空, 请使用RemoveComponent")
 	}
 	e.components[compType] = comp

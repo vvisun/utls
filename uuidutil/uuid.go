@@ -10,8 +10,7 @@ var gGid int64 = 0
 
 // 内存级ID生成
 func GenGid() int64 {
-	atomic.AddInt64(&gGid, 1)
-	return atomic.LoadInt64(&gGid)
+	return atomic.AddInt64(&gGid, 1)
 }
 
 // 分布式ID生成

@@ -18,9 +18,14 @@ func (slf *comp_2) printA(a int) {
 func TestAll(t *testing.T) {
 	e1 := NewEntity()
 
+	//AddComponent(e1, nil)
+	//AddComponent(e1, 0)
+	//AddComponent(e1, "aaa")
+
 	var ttt *comp_1 = nil
-	AddComponent(e1, ttt)
-	log.Printf("1 是否comp_1: %v", ExistComponent[comp_1](e1))
+	log.Printf("isNil: %v %v", ttt, isNil(ttt))
+	//AddComponent(e1, ttt)
+	log.Printf("1 是否comp_1: %v %v", ExistComponent[comp_1](e1), GetComponent[comp_1](e1))
 	log.Printf("是否comp_2: %v", ExistComponent[comp_2](e1))
 
 	RemoveComponent[comp_1](e1)
