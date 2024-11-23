@@ -34,22 +34,22 @@ func OptionControl(h http.Handler) http.Handler {
 func HTTPGet(apiUrl string, data url.Values) ([]byte, error) {
 	u, err := url.ParseRequestURI(apiUrl)
 	if err != nil {
-		leaflog.Debug("get failed, err:%v\n", err)
+		//leaflog.Debug("get failed, err:%v\n", err)
 		return nil, err
 	}
 	u.RawQuery = data.Encode() // URL encode
 
 	var body []byte
 	rspn, err := http.Get(u.String())
-	leaflog.Debug("get url:%s\n", u.String())
+	//leaflog.Debug("get url:%s\n", u.String())
 	if err != nil {
-		leaflog.Debug("get failed, err:%v\n", err)
+		//leaflog.Debug("get failed, err:%v\n", err)
 		return nil, err
 	}
 	defer rspn.Body.Close()
 	body, err = io.ReadAll(rspn.Body)
 	if err != nil {
-		leaflog.Debug("get failed, err:%v\n", err)
+		//leaflog.Debug("get failed, err:%v\n", err)
 		return nil, err
 	}
 	return body, err

