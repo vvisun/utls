@@ -49,7 +49,7 @@ func HTTPGet(apiUrl string, data url.Values) ([]byte, error) {
 	defer rspn.Body.Close()
 	body, err = io.ReadAll(rspn.Body)
 	if err != nil {
-		//leaflog.Debug("get failed, err:%v\n", err)
+		leaflog.Debug("get failed, err:%v\n", err)
 		return nil, err
 	}
 	return body, err
