@@ -1,11 +1,13 @@
 package async
 
-import "github.com/sirupsen/logrus"
+import (
+	"github.com/vvisun/utls/leaflog"
+)
 
 func pcall(fn func()) {
 	defer func() {
 		if err := recover(); err != nil {
-			logrus.Errorf("aync/pcall: Error=%v", err)
+			leaflog.Error("aync/pcall: Error=%v", err)
 		}
 	}()
 
